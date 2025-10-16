@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { KoKoAdapter } from './adapter';
+import type { KoKoAdapter } from './adapter';
 
-const METADATA_KEY = 'custom:metadata';
+const METADATA_KEY = 'custom:metadataTest';
 
 function setMetadata(value: string) {
   return function (target: any) {
@@ -11,15 +11,15 @@ function setMetadata(value: string) {
 
 @setMetadata('这是我的元数据信息')
 class MyClass {
-  constructor(adapter: KoKoAdapter) {
-    console.log('🚀 ~测试', adapter);
+  constructor(adapter: KoKoAdapter, demo1: string) {
+    console.log('🚀 ~测试', adapter, demo1);
   }
 
-  greet() {
+  static greet() {
     return 'Hello World';
   }
 }
 
 const metadata = Reflect.getMetadata(METADATA_KEY, MyClass);
 
-console.log('读取到的元数据:', metadata);
+console.log('测试', MyClass.greet(), metadata);

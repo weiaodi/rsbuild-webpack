@@ -8,7 +8,6 @@ export default defineConfig({
     entry: {
       demo: {
         import: ['./src/index.ts'],
-        html: false,
       },
     },
   },

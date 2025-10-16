@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "noUncheckedSideEffectImports": true,
-    "emitDecoratorMetadata": true, // 启用元数据生成（关键）
+    "emitDecoratorMetadata": true, // 启用元数据生成
     "experimentalDecorators": true, // 启用装饰器
     /* type checking */
     "strict": true,

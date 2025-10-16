@@ -1,4 +1,17 @@
-// 适配器接口定义
+// ./adapter.ts
+// export class KoKoAdapter {
+//   eventEmitter = {
+//     emit: (eventName: string, ...args: any[]) => {},
+//   };
+
+//   getMilestoneContent(id: string): any[] {
+//     return []; // 实际实现
+//   }
+
+//   updateMilestoneContent(id: string, content: any[]): void {
+//     // 实际实现
+//   }
+// }
 export interface KoKoAdapter {
   eventEmitter: {
     emit: (eventName: string, ...args: any[]) => void;
