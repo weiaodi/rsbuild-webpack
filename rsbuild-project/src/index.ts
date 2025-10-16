@@ -1,31 +1,25 @@
-// 1. 引入反射库（元数据操作依赖）
 import 'reflect-metadata';
+import { KoKoAdapter } from './adapter';
 
-interface UserType {
-  id: string;
-  name: string;
-}
+const METADATA_KEY = 'custom:metadata';
 
-const USER_METADATA_KEY = 'user:config';
-
-function setUserConfig(config: { title: string }) {
+function setMetadata(value: string) {
   return function (target: any) {
-    Reflect.defineMetadata(USER_METADATA_KEY, config, target);
+    Reflect.defineMetadata(METADATA_KEY, value, target);
   };
 }
 
-@setUserConfig({
-  title: '用户管理模型',
-})
-class UserManager {
-  getUserName(user: UserType): string {
-    return user.name;
+@setMetadata('这是我的元数据信息')
+class MyClass {
+  constructor(adapter: KoKoAdapter) {
+    console.log('🚀 ~测试', adapter);
+  }
+
+  greet() {
+    return 'Hello World';
   }
 }
 
-const userMetadata = Reflect.getMetadata(USER_METADATA_KEY, UserManager);
-console.log('读取到的元数据：', userMetadata);
+const metadata = Reflect.getMetadata(METADATA_KEY, MyClass);
 
-const mockUser: UserType = { id: '123', name: '张三' };
-const manager = new UserManager();
-console.log('获取用户名：', manager.getUserName(mockUser));
+console.log('读取到的元数据:', metadata);
