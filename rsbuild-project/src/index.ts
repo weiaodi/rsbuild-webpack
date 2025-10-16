@@ -1,15 +1,31 @@
-// app.ts
-import { UserService } from './user-service';
-import { User } from './user';
+// 1. 引入反射库（元数据操作依赖）
+import 'reflect-metadata';
 
-// 创建用户实例
-const user1 = new User(1, '张三');
-const user2 = new User(2, '李四');
+interface UserType {
+  id: string;
+  name: string;
+}
 
-// 创建服务实例
-const userService = new UserService([user1]);
+const USER_METADATA_KEY = 'user:config';
 
-// 使用服务方法
-userService.addUser(user2);
-const foundUser = userService.getUserById(1);
-console.log('找到的用户:', foundUser?.getDisplayName());
+function setUserConfig(config: { title: string }) {
+  return function (target: any) {
+    Reflect.defineMetadata(USER_METADATA_KEY, config, target);
+  };
+}
+
+@setUserConfig({
+  title: '用户管理模型',
+})
+class UserManager {
+  getUserName(user: UserType): string {
+    return user.name;
+  }
+}
+
+const userMetadata = Reflect.getMetadata(USER_METADATA_KEY, UserManager);
+console.log('读取到的元数据：', userMetadata);
+
+const mockUser: UserType = { id: '123', name: '张三' };
+const manager = new UserManager();
+console.log('获取用户名：', manager.getUserName(mockUser));

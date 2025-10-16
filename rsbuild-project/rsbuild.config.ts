@@ -5,5 +5,11 @@ export default defineConfig({
     decorators: {
       version: 'legacy',
     },
+    entry: {
+      demo: {
+        import: ['./src/index.ts'],
+        html: false,
+      },
+    },
   },
 });
