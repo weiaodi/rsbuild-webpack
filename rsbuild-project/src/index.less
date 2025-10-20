@@ -1,0 +1,57 @@
+// 定义变量
+@primary-color: #4285f4;
+@text-color: #333;
+@border-radius: 4px;
+@base-padding: 12px;
+
+// 定义混合（可复用样式块）
+.box-shadow(@x: 0, @y: 2px, @blur: 4px, @color: rgba(0,0,0,0.1)) {
+  box-shadow: @x @y @blur @color;
+  -webkit-box-shadow: @x @y @blur @color;
+}
+
+// 嵌套规则（对应 CSS 后代选择器）
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: @base-padding * 2;
+
+  .header {
+    color: @text-color;
+    border-bottom: 1px solid #eee;
+    padding: @base-padding;
+
+    .logo {
+      font-size: 20px;
+      color: @primary-color;
+    }
+
+    .nav {
+      float: right;
+
+      a {
+        margin-left: @base-padding;
+        text-decoration: none;
+        color: @text-color;
+
+        &:hover {
+          // & 代表父选择器本身
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .card {
+    background: #fff;
+    border-radius: @border-radius;
+    .box-shadow(); // 调用混合
+    padding: @base-padding;
+    margin-top: @base-padding;
+
+    &.active {
+      // 拼接选择器（.card.active）
+      border: 1px solid @primary-color;
+    }
+  }
+}

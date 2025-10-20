@@ -1,5 +1,7 @@
 import 'reflect-metadata';
 import type { KoKoAdapter } from './adapter';
+// @ts-ignore
+import './index.less';
 
 const METADATA_KEY = 'custom:metadataTest';
 
